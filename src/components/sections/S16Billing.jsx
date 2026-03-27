@@ -411,7 +411,7 @@ export default function S16Billing() {
       {/* ── 5. Live cost calculator ── */}
       <CostCalc />
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 16 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12, marginTop: 16 }}>
         <Callout color={T.green} icon="💡">
           <strong style={{ color: T.text }}>DeepSeek es 10× más barato que Sonnet</strong> para tareas donde la calidad es suficiente. Muchos developers usan DeepSeek para exploración/planificación y Sonnet/Opus solo para implementación final.
         </Callout>
