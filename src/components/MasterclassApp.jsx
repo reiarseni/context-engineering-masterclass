@@ -282,7 +282,7 @@ export default function MasterclassApp() {
             <div style={{
               background: `linear-gradient(180deg, #0a0f1e 0%, ${T.bg} 100%)`,
               borderBottom: `1px solid ${T.border}`,
-              padding: "24px 32px 18px",
+              padding: "10px 32px 8px",
               position: "relative", overflow: "hidden",
             }}>
               <div style={{
@@ -291,9 +291,8 @@ export default function MasterclassApp() {
                   radial-gradient(circle at 80% 20%, ${T.blue}08 0%, transparent 50%)`,
               }} />
               <div style={{ position: "relative" }}>
-                <p style={{ fontFamily: T.sans, fontSize: 13, color: T.textMid, lineHeight: 1.65, margin: 0 }}>
-                  Cómo los agentes de código (Cursor, Windsurf, Claude Code, OpenCode) construyen contexto,
-                  orquestan Skills, conectan MCPs, gestionan Memorias y pagan por cada token enviado al LLM.
+                <p style={{ fontFamily: T.mono, fontSize: 10, color: T.textDim, lineHeight: 1.5, margin: 0, letterSpacing: "0.01em" }}>
+                  Cursor, Windsurf, Claude Code, OpenCode — contexto · Skills · MCPs · Memorias · tokens
                 </p>
               </div>
             </div>
