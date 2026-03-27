@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { T } from "../tokens.js";
-import { Badge, CodeBlock, Callout, SectionTitle } from "../shared.jsx";
+import { Badge, CodeBlock, Callout, SectionTitle, useMobile } from "../shared.jsx";
 
 function blockFromHash(blocks) {
   if (typeof window === "undefined") return null;
@@ -10,6 +10,7 @@ function blockFromHash(blocks) {
 }
 
 export default function S2Anatomy() {
+  const isMobile = useMobile();
   const blocks = [
     { id:0, slug:"system-prompt",  label:"System Prompt",    tokens:"~1,200 tok", color:T.purple, pct:14,
       desc:"Instrucciones base del agente: rol, comportamiento, restricciones. Define quién 'es' el LLM.",
@@ -81,7 +82,7 @@ export default function S2Anatomy() {
             </div>
           ))}
         </div>
-        <div style={{display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:8}}>
+        <div style={{display:"grid", gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(4,1fr)", gap:8}}>
           {blocks.map((b)=>(
             <div key={b.id}
               onClick={() => select(b.id, b.slug)}

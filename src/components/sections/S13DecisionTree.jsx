@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { T } from "../tokens.js";
-import { Callout, SectionTitle, CodeBlock } from "../shared.jsx";
+import { Callout, SectionTitle, CodeBlock, useMobile } from "../shared.jsx";
 
 function DiamondIcon({ color, size = 18 }) {
   return (
@@ -309,6 +309,7 @@ const SECTIONS = [
 ];
 
 export default function S13DecisionTree() {
+  const isMobile = useMobile();
   return (
     <div style={{ animation: "fadeSlideIn 0.4s ease" }}>
       <SectionTitle
@@ -357,7 +358,7 @@ export default function S13DecisionTree() {
         />
       ))}
 
-      <div style={{ marginTop: 20, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+      <div style={{ marginTop: 20, display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
         <Callout color={T.purple} icon="🧠">
           <strong style={{ color: T.text }}>La regla de oro:</strong> sé específico con archivos, explícito con el objetivo, y limpio con el contexto. Los problemas de calidad casi siempre son problemas de contexto.
         </Callout>

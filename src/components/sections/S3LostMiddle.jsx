@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { T } from "../tokens.js";
-import { Callout, SectionTitle, Btn, CodeBlock } from "../shared.jsx";
+import { Callout, SectionTitle, Btn, CodeBlock, useMobile } from "../shared.jsx";
 
 export default function S3LostMiddle() {
+  const isMobile = useMobile();
   const [show, setShow] = useState(true);
   const [animated, setAnimated] = useState(false);
   useEffect(()=>{ setTimeout(()=>setAnimated(true), 200); },[]);
@@ -67,7 +68,7 @@ export default function S3LostMiddle() {
           </div>
         </div>
       )}
-      <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:16, marginBottom:20}}>
+      <div style={{display:"grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap:16, marginBottom:20}}>
         <Callout color={T.red} icon="⚠️">
           Contextos fragmentados producen una caída del 39% en rendimiento (paper "Lost in the Middle", Stanford 2023). El orden importa tanto como el contenido.
         </Callout>

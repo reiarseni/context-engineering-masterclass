@@ -305,7 +305,7 @@ export default function S15AgentChooser() {
       />
 
       {/* Agent selector cards */}
-      <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(3, 1fr)" : "repeat(5, 1fr)", gap: 8, marginBottom: 16 }}>
         {AGENTS.map(a => (
           <AgentCard key={a.id} agent={a} selected={selected === a.id} onClick={() => selectAgent(a.id)} />
         ))}

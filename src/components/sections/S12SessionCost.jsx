@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { T } from "../tokens.js";
-import { Callout, SectionTitle, Badge } from "../shared.jsx";
+import { Callout, SectionTitle, Badge, useMobile } from "../shared.jsx";
 
 const COMPONENTS = [
   { key: "sys",     label: "System Prompt",   color: T.blue,   short: "SP" },
@@ -216,6 +216,7 @@ function RequestCard({ req, expanded, onToggle }) {
 }
 
 export default function S12SessionCost() {
+  const isMobile = useMobile();
   const [expanded, setExpanded] = useState(null);
 
   const totalTokens = REQUESTS.reduce((a, r) => a + r.tokens, 0);
@@ -300,7 +301,7 @@ export default function S12SessionCost() {
 
       {/* Session summary */}
       <div style={{
-        display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 20,
+        display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 10, marginBottom: 20,
       }}>
         {[
           { label: "Tokens totales (sesión)", value: totalTokens.toLocaleString(), unit: "tokens", color: T.blue },
@@ -318,7 +319,7 @@ export default function S12SessionCost() {
       </div>
 
       {/* Insights grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 20 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10, marginBottom: 20 }}>
         {INSIGHTS.map((ins, i) => (
           <div key={i} style={{
             background: `${ins.color}0a`, border: `1px solid ${ins.color}33`,

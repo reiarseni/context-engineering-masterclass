@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { T } from "../tokens.js";
-import { Badge, Callout, SectionTitle, CodeBlock } from "../shared.jsx";
+import { Badge, Callout, SectionTitle, CodeBlock, useMobile } from "../shared.jsx";
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 
@@ -230,6 +230,7 @@ function ParallelViz({ mode }) {
 /* ─── Main component ────────────────────────────────────────────────────── */
 
 export default function S14ToolUse() {
+  const isMobile = useMobile();
   const [activePhase, setActivePhase] = useState(0);
   const [showDesign, setShowDesign] = useState(0);
 
@@ -252,7 +253,7 @@ export default function S14ToolUse() {
         <p style={{ fontFamily: T.mono, fontSize: 11, color: T.textDim, marginBottom: 14 }}>
           EL CICLO TOOL USE — click en cada fase para ver el detalle
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 14 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 8, marginBottom: 14 }}>
           {TOOL_CALL_PHASES.slice(0, 4).map((p, i) => (
             <PhaseStep key={i} phase={p} active={activePhase === i} onClick={() => setActivePhase(i)} />
           ))}
@@ -307,7 +308,7 @@ export default function S14ToolUse() {
           <code style={{ fontFamily: T.mono, color: T.cyan }}>tool_use</code> blocks en una sola respuesta.
           El agente los ejecuta en paralelo — reduciendo round-trips de 3 a 1.
         </p>
-        <div style={{ display: "flex", gap: 12 }}>
+        <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12 }}>
           <ParallelViz mode="naive" />
           <ParallelViz mode="parallel" />
         </div>
@@ -397,7 +398,7 @@ export default function S14ToolUse() {
           Los agentes pueden encadenar herramientas secuencialmente cuando cada paso depende del anterior.
           El modelo razona entre cada resultado y decide el siguiente tool call.
         </p>
-        <div style={{ display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 6, alignItems: "center", overflowX: "auto", paddingBottom: 4 }}>
           {CHAIN_STEPS.map((step, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 6 }}>
               <div style={{
@@ -450,7 +451,7 @@ export default function S14ToolUse() {
           const d = TOOL_DESIGN[showDesign];
           return (
             <div style={{ animation: "fadeSlideIn 0.2s ease" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 10 }}>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10, marginBottom: 10 }}>
                 <div style={{
                   background: `${T.red}0a`, border: `1px solid ${T.red}33`,
                   borderRadius: 6, padding: "10px 12px",
@@ -478,7 +479,7 @@ export default function S14ToolUse() {
         })()}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
         <Callout color={T.cyan} icon="⚡">
           <strong style={{ color: T.text }}>Tool use ≠ magia:</strong> el LLM no "hace" nada directamente. Emite instrucciones estructuradas que el runtime del agente intercepta y ejecuta. El modelo ve los resultados como texto en su contexto.
         </Callout>

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { T } from "../tokens.js";
-import { Callout, SectionTitle } from "../shared.jsx";
+import { Callout, SectionTitle, useMobile } from "../shared.jsx";
 
 export default function S6Cost() {
+  const isMobile = useMobile();
   const [turns, setTurns] = useState(5);
   const baseTokens = 2000;
   const growthFactor = 1.55;
@@ -41,7 +42,7 @@ export default function S6Cost() {
             </div>
           ))}
         </div>
-        <div style={{display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:12}}>
+        <div style={{display:"grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap:12}}>
           {[
             {label:"Costo Total", value:`$${totalCost.toFixed(4)}`, color:T.red, icon:"💰"},
             {label:"Tokens último turno", value:`${(turnTokens[turns-1].input/1000).toFixed(1)}K`, color:T.amber, icon:"📊"},
@@ -58,7 +59,7 @@ export default function S6Cost() {
           ))}
         </div>
       </div>
-      <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:16}}>
+      <div style={{display:"grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap:16}}>
         <Callout color={T.green} icon="💡">
           Si resuelves en 3 turnos lo que tomaría 10, ahorras ~70% en tokens — y el código suele ser mejor porque el contexto está más limpio.
         </Callout>

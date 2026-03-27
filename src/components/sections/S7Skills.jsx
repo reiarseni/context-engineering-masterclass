@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { T } from "../tokens.js";
-import { Badge, CodeBlock, Callout, SectionTitle } from "../shared.jsx";
+import { Badge, CodeBlock, Callout, SectionTitle, useMobile } from "../shared.jsx";
 
 export default function S7Skills() {
+  const isMobile = useMobile();
   const [activeSkill, setActiveSkill] = useState(null);
   const skills = [
     {
@@ -91,7 +92,7 @@ public function index(): JsonResponse {
     <div style={{animation:"fadeSlideIn 0.4s ease"}}>
       <SectionTitle icon="🛠️" title="Skills — Capacidades Modulares" color={T.cyan}
         subtitle="Los Skills son bloques de conocimiento especializado que el agente inyecta en el contexto según la tarea. Son la forma en que los agentes aprenden nuevas capacidades sin reentrenamiento." />
-      <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:12, marginBottom:20}}>
+      <div style={{display:"grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap:12, marginBottom:20}}>
         {skills.map((sk,i)=>(
           <div key={i} onClick={()=>setActiveSkill(activeSkill===i?null:i)}
             style={{
