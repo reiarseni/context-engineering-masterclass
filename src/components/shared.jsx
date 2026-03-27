@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { T } from './tokens.js';
 
 export function useMobile(bp = 768) {
-  const [m, setM] = useState(() => typeof window !== 'undefined' && window.innerWidth < bp);
+  const [m, setM] = useState(false);
   useEffect(() => {
     const check = () => setM(window.innerWidth < bp);
+    check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, [bp]);
