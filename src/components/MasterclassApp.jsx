@@ -41,7 +41,7 @@ const TABS = [
 
 function tabFromPath() {
   if (typeof window === "undefined") return 0;
-  const base = CONFIG.baseSlash.replace(/\//g, '\\/');
+  const base = CONFIG.baseSlash;
   const path = window.location.pathname.replace(new RegExp(`^${base}`), "").replace(/^\//, "").replace(/\/$/, "");
   const found = TABS.find(t => t.slug === path);
   return found ? found.id : 0;
