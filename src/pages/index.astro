@@ -1,0 +1,38 @@
+---
+/**
+ * index.astro — Página principal
+ *
+ * En Astro, las páginas viven en src/pages/ y definen rutas automáticamente.
+ * Este archivo (index.astro) → ruta "/"
+ *
+ * El "frontmatter" (entre ---) es código que corre en el SERVIDOR (o build time).
+ * El resto es la plantilla HTML que se envía al cliente.
+ *
+ * Para componentes React interactivos usamos la directiva client:load,
+ * que le dice a Astro que hidrate el componente en el cliente.
+ */
+
+// Importamos el Layout Astro (componente .astro)
+import Layout from "../layouts/Layout.astro";
+
+// Importamos el componente React interactivo
+import MasterclassApp from "../components/MasterclassApp.jsx";
+
+// Código del servidor — se ejecuta en build time
+const title = "Context Engineering & Agentic Systems — Masterclass";
+---
+
+<Layout title={title}>
+  <!--
+    client:load → hidrata el componente React inmediatamente cuando carga la página.
+
+    Otras directivas de Astro:
+    - client:idle   → hidrata cuando el navegador está idle
+    - client:visible → hidrata cuando el componente entra al viewport (lazy)
+    - client:only   → solo renderiza en el cliente (sin SSR)
+
+    Para esta masterclass usamos client:load porque la interactividad
+    es el core de la experiencia.
+  -->
+  <MasterclassApp client:load />
+</Layout>
