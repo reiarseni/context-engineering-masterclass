@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { T } from "./tokens.js";
 import { Btn } from "./shared.jsx";
+import { CONFIG } from "../config.js";
 
 import S1Amnesia from "./sections/S1Amnesia.jsx";
 import S2Anatomy from "./sections/S2Anatomy.jsx";
@@ -38,11 +39,10 @@ const TABS = [
   { id:15, slug:"guia",           label:"🗺️ Guía Decisiones",  short:"Guía",          component:S13DecisionTree },
 ];
 
-const BASE = '/context-engineering-masterclass';
-
 function tabFromPath() {
   if (typeof window === "undefined") return 0;
-  const path = window.location.pathname.replace(new RegExp(`^${BASE}`), "").replace(/^\//, "").replace(/\/$/, "");
+  const base = CONFIG.baseSlash.replace(/\//g, '\\/');
+  const path = window.location.pathname.replace(new RegExp(`^${base}`), "").replace(/^\//, "").replace(/\/$/, "");
   const found = TABS.find(t => t.slug === path);
   return found ? found.id : 0;
 }
@@ -64,7 +64,7 @@ export default function MasterclassApp() {
 
   const navigate = (id) => {
     const clamped = Math.max(0, Math.min(TABS.length - 1, id));
-    history.pushState(null, "", BASE + "/" + TABS[clamped].slug);
+    history.pushState(null, "", CONFIG.baseSlash + TABS[clamped].slug);
     setTab(clamped);
     window.scrollTo({ top: 0 });
     if (isMobile) setDrawerOpen(false);
