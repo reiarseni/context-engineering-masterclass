@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { T } from "../tokens.js";
-import { Badge, CodeBlock, Callout, SectionTitle } from "../shared.jsx";
+import { Badge, CodeBlock, Callout, SectionTitle, useMobile } from "../shared.jsx";
 
 export default function S10Memories() {
+  const isMobile = useMobile();
   const [memType, setMemType] = useState(0);
   const memTypes = [
     {
@@ -95,7 +96,7 @@ context.push(...relevant.map(doc => ({
         borderRadius:12, padding:20, marginBottom:20,
       }}>
         <p style={{fontFamily:T.mono, fontSize:11, color:T.textDim, marginBottom:14}}>TIPOS DE MEMORIA — selecciona para explorar</p>
-        <div style={{display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:8, marginBottom:20}}>
+        <div style={{display:"grid", gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(4,1fr)", gap:8, marginBottom:20}}>
           {memTypes.map((mt,i)=>(
             <div key={i} onClick={()=>setMemType(i)}
               style={{

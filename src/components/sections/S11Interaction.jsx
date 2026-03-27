@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { T } from "../tokens.js";
-import { Badge, Callout, SectionTitle, Btn } from "../shared.jsx";
+import { Badge, Callout, SectionTitle, Btn, useMobile } from "../shared.jsx";
 
 export default function S11Interaction() {
+  const isMobile = useMobile();
   const [flow, setFlow] = useState(null);
   const flows = [
     {
@@ -72,7 +73,7 @@ export default function S11Interaction() {
               <div style={{fontFamily:T.sans, fontSize:11, color:T.textDim}}>Orquestador central</div>
             </div>
           </div>
-          <div style={{display:"grid", gridTemplateColumns:"1fr 1fr 1fr 1fr", gap:12}}>
+          <div style={{display:"grid", gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(4,1fr)", gap:12}}>
             {[
               {icon:"🛠️", label:"Skills", color:T.cyan, desc:"Conocimiento\nmodular"},
               {icon:"🔌", label:"MCP Servers", color:T.amber, desc:"Herramientas\nexternas"},

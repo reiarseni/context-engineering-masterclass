@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { T } from "../tokens.js";
-import { Callout, SectionTitle, Badge } from "../shared.jsx";
+import { Callout, SectionTitle, Badge, useMobile } from "../shared.jsx";
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 
@@ -277,6 +277,7 @@ function agentFromHash() {
 }
 
 export default function S15AgentChooser() {
+  const isMobile = useMobile();
   const [selected, setSelected] = useState(() => agentFromHash());
   const [profileTab, setProfileTab] = useState(null);
   const [showTable, setShowTable] = useState(false);
@@ -338,7 +339,7 @@ export default function S15AgentChooser() {
         </div>
 
         {/* Quick specs */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
           {[
             { k: "Precio", v: agent.price },
             { k: "Modelos", v: agent.model },
@@ -355,7 +356,7 @@ export default function S15AgentChooser() {
         </div>
 
         {/* Pros / Cons */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 14 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12, marginBottom: 14 }}>
           <div>
             <div style={{ fontFamily: T.mono, fontSize: 10, color: T.green, marginBottom: 8, fontWeight: 600 }}>
               ✓ PROS
@@ -385,7 +386,7 @@ export default function S15AgentChooser() {
         </div>
 
         {/* Ideal for + rules file */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 10, alignItems: "start" }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr auto", gap: 10, alignItems: "start" }}>
           <div style={{
             background: `${agent.color}0f`, border: `1px solid ${agent.color}33`,
             borderRadius: 6, padding: "8px 12px",
@@ -399,7 +400,7 @@ export default function S15AgentChooser() {
           </div>
           <div style={{
             background: T.surface2, border: `1px solid ${T.border}`,
-            borderRadius: 6, padding: "8px 12px", whiteSpace: "nowrap",
+            borderRadius: 6, padding: "8px 12px",
           }}>
             <div style={{ fontFamily: T.mono, fontSize: 9, color: T.textDim, marginBottom: 4 }}>ARCHIVO DE REGLAS</div>
             <code style={{ fontFamily: T.mono, fontSize: 11, color: agent.color }}>{agent.rules}</code>

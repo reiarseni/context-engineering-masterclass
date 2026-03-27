@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { T } from "../tokens.js";
-import { Callout, SectionTitle } from "../shared.jsx";
+import { Callout, SectionTitle, useMobile } from "../shared.jsx";
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 
@@ -102,6 +102,7 @@ const OPENROUTER_INFO = {
 
 /* ─── Session cost calculator ───────────────────────────────────────────── */
 function CostCalc() {
+  const isMobile = useMobile();
   const [turns, setTurns] = useState(8);
   const [modelIdx, setModelIdx] = useState(1); // Sonnet 4.6 by default
   const calcModels = [
@@ -165,7 +166,7 @@ function CostCalc() {
           </div>
         ))}
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 8 }}>
         {[
           { label: "Costo total sesión", value: `$${totalCost.toFixed(4)}`, color: T.purple },
           { label: "Tokens último turno", value: `${(turnData[turns - 1].inputTokens / 1000).toFixed(1)}K`, color: T.amber },
@@ -187,6 +188,7 @@ function CostCalc() {
 /* ─── Main ──────────────────────────────────────────────────────────────── */
 
 export default function S16Billing() {
+  const isMobile = useMobile();
   const [billingTab, setBillingTab] = useState("subscription");
   const [filterProvider, setFilterProvider] = useState("all");
 
@@ -209,10 +211,10 @@ export default function S16Billing() {
       {/* ── 1. Billing models ── */}
       <div style={{ background: T.surface, border: `1px solid ${T.border}`, borderRadius: 10, padding: 16, marginBottom: 20 }}>
         <p style={{ fontFamily: T.mono, fontSize: 11, color: T.textDim, marginBottom: 12 }}>DOS MODELOS DE FACTURACIÓN</p>
-        <div style={{ display: "flex", gap: 6, marginBottom: 14 }}>
+        <div style={{ display: "flex", gap: 6, marginBottom: 14, flexWrap: "wrap" }}>
           {BILLING_MODELS.map(b => (
             <button key={b.id} onClick={() => setBillingTab(b.id)} style={{
-              flex: 1, fontFamily: T.mono, fontSize: 10, padding: "7px 10px",
+              flex: 1, minWidth: 120, fontFamily: T.mono, fontSize: 10, padding: "7px 10px",
               borderRadius: 6, cursor: "pointer", transition: "all 0.15s",
               background: billingTab === b.id ? `${b.color}22` : T.surface2,
               border: `1px solid ${billingTab === b.id ? b.color + "66" : T.border}`,
@@ -227,7 +229,7 @@ export default function S16Billing() {
             <p style={{ fontFamily: T.sans, fontSize: 12, color: T.textMid, lineHeight: 1.7, marginBottom: 12 }}>
               {billingModel.desc}
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 10 }}>
               <div style={{ background: T.surface2, borderRadius: 6, padding: "8px 10px" }}>
                 <div style={{ fontFamily: T.mono, fontSize: 9, color: T.textDim, marginBottom: 5 }}>EJEMPLOS</div>
                 {billingModel.examples.map((e, i) => (
@@ -252,7 +254,7 @@ export default function S16Billing() {
         <p style={{ fontFamily: T.mono, fontSize: 11, color: T.textDim, marginBottom: 14 }}>
           PLANES CLAUDE CODE — suscripción vs API directa
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2,1fr)" : "repeat(4,1fr)", gap: 8 }}>
           {CLAUDE_PLANS.map((plan, i) => (
             <div key={i} style={{
               background: `${plan.color}0a`, border: `1px solid ${plan.color}33`,
@@ -305,7 +307,7 @@ export default function S16Billing() {
             padding: "1px 7px", borderRadius: 10,
           }}>openrouter.ai</span>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12 }}>
           <div>
             <p style={{ fontFamily: T.sans, fontSize: 12, color: T.textMid, lineHeight: 1.7, marginBottom: 10 }}>
               Una sola API key para acceder a <strong style={{ color: T.text }}>múltiples proveedores</strong>. Cambia de Claude a GPT a Gemini modificando un parámetro. Sin markup en la inferencia — el fee de ~5.5% se aplica <em>al comprar créditos</em>, no por uso.
