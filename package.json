@@ -8,6 +8,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:github": "astro build && npm run move-dist",
+    "move-dist": "node scripts/move-dist.js",
     "preview": "astro preview",
     "astro": "astro"
   },
