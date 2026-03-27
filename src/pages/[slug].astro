@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import MasterclassApp from "../components/MasterclassApp.jsx";
+
+export async function getStaticPaths() {
+  const slugs = [
+    "amnesia", "anatomia", "lost-middle", "inyeccion", "loop",
+    "costos", "sesion-real", "skills", "mcp", "tool-use",
+    "agentes", "elegir-agente", "facturacion", "memorias", "interaccion", "guia",
+  ];
+  return slugs.map((slug) => ({ params: { slug } }));
+}
+
+const title = "Context Engineering & Agentic Systems — Masterclass";
+---
+
+<Layout title={title}>
+  <MasterclassApp client:load />
+</Layout>
