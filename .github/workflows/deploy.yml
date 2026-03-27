@@ -37,9 +37,8 @@ jobs:
       - name: Build with Astro
         run: npm run build
         env:
-          # Injected automatically by configure-pages — do not remove
-          ASTRO_SITE: ${{ steps.pages.outputs.origin }}
-          ASTRO_BASE: ${{ steps.pages.outputs.base_path }}
+          SITE: ${{ steps.pages.outputs.origin }}
+          BASE_URL: ${{ steps.pages.outputs.base_path }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
